@@ -1,0 +1,35 @@
+{
+  "name": "toki-method-http",
+  "version": "0.0.1",
+  "private": false,
+  "description": "Plugin",
+  "homepage": "https://github.com/xogroup/toki-method-http#readme",
+  "main": "lib/implementation.js",
+  "bugs": {
+    "url": "https://github.com/xogroup/toki-method-http/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xogroup/toki-method-http.git"
+  },
+  "keywords": [
+    "toki-method-http"
+  ],
+  "scripts": {
+      "test": "lab",
+      "doctoc": "doctoc API.md && doctoc Example.md"
+  },
+  "author": "XO Group Team",
+  "license": "ISC",
+  "devDependencies": {
+    "code": "4.0.0",
+    "eslint": "3.10.2",
+    "eslint-plugin-xogroup": "1.x.x",
+    "lab": "12.1.0",
+    "doctoc": "^1.2.0"
+  },
+  "peerDependencies": {
+  },
+  "dependencies": {
+  }
+}
