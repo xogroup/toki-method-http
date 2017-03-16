@@ -10,7 +10,8 @@ const configSchema = Joi.object().keys({
     passThroughHeaders: Joi.alternatives().try(Joi.boolean(), Joi.array()),
     headers: Joi.object(),
     payload: Joi.any(),
-    method: Joi.string().allow(['get', 'post', 'put', 'del', 'patch']).default('get')
+    method: Joi.string().allow(['get', 'post', 'put', 'del', 'patch']).default('get'),
+    type: Joi.string().allow(['json', 'application/json'])
 });
 
 module.exports = function () {
@@ -26,6 +27,11 @@ module.exports = function () {
     .then(() => {
         //url
         const req = Request(this.config.method, this.config.url);
+
+        //content type
+        if (this.config.type) {
+            req.type(this.config.type);
+        }
 
         //body
         if (this.config.payload) {

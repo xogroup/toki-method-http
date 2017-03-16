@@ -16,7 +16,7 @@
     "toki-method-http"
   ],
   "scripts": {
-    "test": "lab",
+    "test": "node_modules/.bin/lab -c",
     "doctoc": "doctoc API.md && doctoc Example.md"
   },
   "author": "XO Group Team",

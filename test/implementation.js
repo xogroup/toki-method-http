@@ -30,7 +30,7 @@ describe('HTTP Method', () => {
             handler: (req, reply) => {
 
                 reply(200);
-                return actionSpies.get(req.body, req.headers);
+                return actionSpies.get(req.payload, req.headers);
             }
         });
 
@@ -40,7 +40,7 @@ describe('HTTP Method', () => {
             handler: (req, reply) => {
 
                 reply(201);
-                return actionSpies.post(req.body, req.headers);
+                return actionSpies.post(req.payload, req.headers);
             }
         });
 
@@ -119,7 +119,7 @@ describe('HTTP Method', () => {
         });
     });
 
-    it('makes a post request', () => {
+    it('makes a post request with a fixed header', () => {
 
         const testHeader = { 'x-arbitrary': 'Foobar' };
         return Promise
@@ -137,6 +137,103 @@ describe('HTTP Method', () => {
             expect(actionSpies.post.calledOnce).to.be.true();
             const spyArgs = actionSpies.post.getCall(0).args;
             expect(spyArgs[1]).to.include(testHeader);
+        });
+    });
+
+    it('makes a post request with a json body using no type', () => {
+
+        const testBody = { foo: 'bar', biz: 'baz' };
+        return Promise
+        .resolve()
+        .bind({
+            action: {
+                url: 'http://localhost:5000/test',
+                method: 'post',
+                payload: testBody
+            }
+        })
+        .then(HttpMethod)
+        .then( () => {
+
+            expect(actionSpies.post.calledOnce).to.be.true();
+            const spyArgs = actionSpies.post.getCall(0).args;
+            expect(spyArgs[0]).to.equal(testBody);
+        });
+    });
+
+    it('makes a post request with a json body, setting type', () => {
+
+        const testBody = { foo: 'bar', biz: 'baz' };
+        return Promise
+        .resolve()
+        .bind({
+            action: {
+                url: 'http://localhost:5000/test',
+                method: 'post',
+                payload: testBody,
+                type: 'json'
+            }
+        })
+        .then(HttpMethod)
+        .then( () => {
+
+            expect(actionSpies.post.calledOnce).to.be.true();
+            const spyArgs = actionSpies.post.getCall(0).args;
+            expect(spyArgs[0]).to.equal(testBody);
+        });
+    });
+
+    it('makes a request with all passthrough headers', () => {
+
+        return Promise
+        .resolve()
+        .bind({
+            action: {
+                url: 'http://localhost:5000/test',
+                method: 'get',
+                passThroughHeaders: true
+            },
+            request: {
+                headers: {
+                    'x-arbitrary': 'foo',
+                    'x-bar': 'biz'
+                }
+            }
+        })
+        .then(HttpMethod)
+        .then( () => {
+
+            expect(actionSpies.get.calledOnce).to.be.true();
+            const spyArgs = actionSpies.get.getCall(0).args;
+            expect(spyArgs[1]).to.include({ 'x-arbitrary': 'foo' });
+            expect(spyArgs[1]).to.include({ 'x-bar': 'biz' });
+        });
+    });
+
+    it('makes a request with specific passthrough headers', () => {
+
+        return Promise
+        .resolve()
+        .bind({
+            action: {
+                url: 'http://localhost:5000/test',
+                method: 'get',
+                passThroughHeaders: ['x-bar']
+            },
+            request: {
+                headers: {
+                    'x-arbitrary': 'foo',
+                    'x-bar': 'biz'
+                }
+            }
+        })
+        .then(HttpMethod)
+        .then( () => {
+
+            expect(actionSpies.get.calledOnce).to.be.true();
+            const spyArgs = actionSpies.get.getCall(0).args;
+            expect(spyArgs[1]).to.not.include({ 'x-arbitrary': 'foo' });
+            expect(spyArgs[1]).to.include({ 'x-bar': 'biz' });
         });
     });
 });
