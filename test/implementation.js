@@ -35,6 +35,19 @@ describe('HTTP Method', () => {
         });
 
         server.route({
+            method: 'GET',
+            path: '/payload',
+            handler: (req, reply) => {
+
+                reply({
+                    foo: 'bar',
+                    baz: 'biz'
+                });
+                return actionSpies.get(req.payload, req.headers);
+            }
+        });
+
+        server.route({
             method: 'POST',
             path: '/test',
             handler: (req, reply) => {
@@ -234,6 +247,42 @@ describe('HTTP Method', () => {
             const spyArgs = actionSpies.get.getCall(0).args;
             expect(spyArgs[1]).to.not.include({ 'x-arbitrary': 'foo' });
             expect(spyArgs[1]).to.include({ 'x-bar': 'biz' });
+        });
+    });
+
+    it('makes a request and sends back the response', () => {
+        let clientResponse;
+
+        const context = {
+            action: {
+                name: 'test',
+                url: 'http://localhost:5000/payload',
+                method: 'get',
+                clientResponse: true
+            },
+            response: {
+                send: (blah) => {
+
+                    clientResponse = blah;
+                }
+            }
+        };
+
+        return Promise
+        .resolve()
+        .bind(context)
+        .then(HttpMethod)
+        .then( (output) => {
+
+            expect(actionSpies.get.calledOnce).to.be.true();
+            expect(output).to.equal({
+                foo: 'bar',
+                baz: 'biz'
+            });
+            expect(clientResponse).to.equal({
+                foo: 'bar',
+                baz: 'biz'
+            });
         });
     });
 });
