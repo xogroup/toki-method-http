@@ -267,6 +267,7 @@ describe('HTTP Method', () => {
     });
 
     it('makes a request and sends back the response', () => {
+
         let clientResponse;
 
         const context = {
@@ -274,7 +275,7 @@ describe('HTTP Method', () => {
                 name: 'test',
                 inputConfiguration: {
                     url: 'http://localhost:5000/payload',
-                    method: 'get',
+                    method: 'get'
                 },
                 clientResponseConfiguration: true
             },
