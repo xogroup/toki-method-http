@@ -7,13 +7,15 @@ const Promise = require('bluebird');
 
 const configSchema = Joi.object().keys({
     name: Joi.string(),
-    url: Joi.string().uri().required(),
-    passThroughHeaders: Joi.alternatives().try(Joi.boolean(), Joi.array()),
-    headers: Joi.object(),
-    payload: Joi.any(),
-    method: Joi.string().allow(['get', 'post', 'put', 'del', 'patch']).default('get'),
-    type: Joi.string().allow(['json', 'application/json']),
-    clientResponse: Joi.alternatives().try(Joi.boolean(), Joi.object()),
+    inputConfiguration: Joi.object().keys({
+        url: Joi.string().uri().required(),
+        passThroughHeaders: Joi.alternatives().try(Joi.boolean(), Joi.array()),
+        headers: Joi.object(),
+        payload: Joi.any(),
+        method: Joi.string().allow(['get', 'post', 'put', 'del', 'patch']).default('get'),
+        type: Joi.string().allow(['json', 'application/json'])
+    }),
+    clientResponseConfiguration: Joi.alternatives().try(Joi.boolean(), Joi.object()),
     output: Joi.any()
 });
 
@@ -25,7 +27,7 @@ module.exports = function () {
     .then( () => Templater(this.action, configSchema, { allowUnknown: true } ) )
     .then((config) => {
 
-        this.config = config;
+        this.config = config.inputConfiguration;
     })
     .then(() => {
         //url
@@ -71,12 +73,12 @@ module.exports = function () {
     })
     .then(() => {
 
-        if (this.config.clientResponse) {
-            if (this.config.clientResponse === true) {
+        if (this.config.clientResponseConfiguration) {
+            if (this.config.clientResponseConfiguration === true) {
                 this.response.send(this.action.output);
             }
             else {
-                this.response.send(this.config.clientResponse);
+                this.response.send(this.config.clientResponseConfiguration);
             }
         }
 

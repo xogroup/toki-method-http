@@ -88,7 +88,9 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
-                url: 'http://localhost:5000/test'
+                inputConfiguration: {
+                    url: 'http://localhost:5000/test'
+                }
             }
         })
         .then(HttpMethod)
@@ -104,8 +106,10 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
-                url: 'http://localhost:5000/test',
-                method: 'post'
+                inputConfiguration: {
+                    url: 'http://localhost:5000/test',
+                    method: 'post'
+                }
             }
         })
         .then(HttpMethod)
@@ -121,8 +125,10 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
-                url: 'http://localhost:5000/test',
-                method: 'post'
+                inputConfiguration: {
+                    url: 'http://localhost:5000/test',
+                    method: 'post'
+                }
             }
         })
         .then(HttpMethod)
@@ -139,9 +145,11 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
-                url: 'http://localhost:5000/test',
-                method: 'post',
-                headers: testHeader
+                inputConfiguration: {
+                    url: 'http://localhost:5000/test',
+                    method: 'post',
+                    headers: testHeader
+                }
             }
         })
         .then(HttpMethod)
@@ -160,9 +168,11 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
-                url: 'http://localhost:5000/test',
-                method: 'post',
-                payload: testBody
+                inputConfiguration: {
+                    url: 'http://localhost:5000/test',
+                    method: 'post',
+                    payload: testBody
+                }
             }
         })
         .then(HttpMethod)
@@ -181,10 +191,12 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
-                url: 'http://localhost:5000/test',
-                method: 'post',
-                payload: testBody,
-                type: 'json'
+                inputConfiguration: {
+                    url: 'http://localhost:5000/test',
+                    method: 'post',
+                    payload: testBody,
+                    type: 'json'
+                }
             }
         })
         .then(HttpMethod)
@@ -202,9 +214,11 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
-                url: 'http://localhost:5000/test',
-                method: 'get',
-                passThroughHeaders: true
+                inputConfiguration: {
+                    url: 'http://localhost:5000/test',
+                    method: 'get',
+                    passThroughHeaders: true
+                }
             },
             request: {
                 headers: {
@@ -229,9 +243,11 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
-                url: 'http://localhost:5000/test',
-                method: 'get',
-                passThroughHeaders: ['x-bar']
+                inputConfiguration: {
+                    url: 'http://localhost:5000/test',
+                    method: 'get',
+                    passThroughHeaders: ['x-bar']
+                }
             },
             request: {
                 headers: {
@@ -256,9 +272,11 @@ describe('HTTP Method', () => {
         const context = {
             action: {
                 name: 'test',
-                url: 'http://localhost:5000/payload',
-                method: 'get',
-                clientResponse: true
+                inputConfiguration: {
+                    url: 'http://localhost:5000/payload',
+                    method: 'get',
+                },
+                clientResponseConfiguration: true
             },
             response: {
                 send: (blah) => {
