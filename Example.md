@@ -7,21 +7,22 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Hooking up Foo
+## Hooking up toki-method-http
 
 ```javascript
-const Foo = require('foo');
-let foo = new Foo();
-
-foo.bar();
-```
-
-## Calling the hello method
-
-```javascript
-const Foo = require('foo');
-let foo = new Foo();
-
-foo.name = 'World';
-return foo.hello();
+actions: [
+    ...,
+    {
+        name: 'make inquiry' //name your action
+        inputConfiguration: { //configuration for making our request
+            url: 'http://qa-no-services.theknot.com/conversations/inquiry' //target URL
+            passThroughHeaders: true //true if we want to pass all incoming request headers along, or an array of the ones we want to pass
+            headers: {'X-Authorization': 'Bearer MyApiKey'} //headers to add
+            payload: true //pass along the incoming request body? Template literals are also acceptable
+            method: 'post' //any valid http method
+            type: 'json' //JSON is default
+        },
+        clientResponseConfiguration: true //any valid template or literal to give back to the client, true to return the output of the request unmodified
+    }
+]
 ```

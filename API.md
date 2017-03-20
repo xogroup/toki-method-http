@@ -7,24 +7,23 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-In order to start using Foo, you should...<!-- Description on how to setup and initialize your thing -->
+In order to start using `toki-method-http`, you should...<!-- Description on how to setup and initialize your thing -->
 
 ## toki-method-http
 
 ## Properties <!-- Public properties if you have any -->
 
-### name
-
-`Foo.name`
-
-Sets the name that Foo will great with the [`helloWorld()`](API.md#helloWorld()) <!-- You can link to sections within this page -->
-
-## Methods <!-- Methods too -->
-
-### bar()
-
-`Foo.bar()`
-
-Calls the bar function on the Foo object. Accepts optional arguments X, Y and Z for doing optional things. Returns back a Q.
-
-### helloWorld()
+```
+{
+    name: 'my-action-name' //name your action
+    inputConfiguration: { //configuration for making our request
+        url: 'http://target/path' //target URL
+        passThroughHeaders: true //true if we want to pass all incoming request headers along, or an array of the ones we want to pass
+        headers: {'X-Authorization': 'Bearer MyApiKey'} //headers to add
+        payload: true //pass along the incoming request body? Template literals are also acceptable
+        method: 'post' //any valid http method
+        type: 'json' //JSON is default
+    }
+    clientResponseConfiguration: //any valid template or literal to give back to the client, true to return the output of the request unmodified
+}
+```
