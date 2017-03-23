@@ -4,7 +4,7 @@
   "private": false,
   "description": "Plugin",
   "homepage": "https://github.com/xogroup/toki-method-http#readme",
-  "main": "lib/implementation.js",
+  "main": "src/implementation.js",
   "bugs": {
     "url": "https://github.com/xogroup/toki-method-http/issues"
   },
@@ -22,18 +22,18 @@
   "author": "XO Group Team",
   "license": "ISC",
   "devDependencies": {
-    "bluebird": "^3.5.0",
-    "code": "4.0.0",
-    "doctoc": "^1.2.0",
-    "eslint": "3.10.2",
+    "bluebird": "3.x.x",
+    "code": "4.x.x",
+    "doctoc": "1.x.x",
+    "eslint": "3.x.x",
     "eslint-plugin-xogroup": "1.x.x",
-    "hapi": "^16.1.0",
-    "lab": "12.1.0",
-    "sinon": "^2.0.0"
+    "hapi": "16.x.x",
+    "lab": "12.x.x",
+    "sinon": "2.x.x"
   },
   "peerDependencies": {},
   "dependencies": {
-    "superagent": "^3.5.0",
-    "toki-templater": "^0.1.1"
+    "superagent": "3.5.x",
+    "toki-templater": "1.x.x"
   }
 }
