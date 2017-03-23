@@ -73,7 +73,9 @@ describe('HTTP Method', () => {
         return Promise
         .resolve()
         .bind({
-            action: {}
+            action: {
+                type: 'toki-method-http'
+            }
         })
         .then(HttpMethod)
         .catch( (e) => {
@@ -88,6 +90,7 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
+                type: 'toki-method-http',
                 inputConfiguration: {
                     url: 'http://localhost:5000/test'
                 }
@@ -106,6 +109,7 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
+                type: 'toki-method-http',
                 inputConfiguration: {
                     url: 'http://localhost:5000/test',
                     method: 'post'
@@ -125,6 +129,7 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
+                type: 'toki-method-http',
                 inputConfiguration: {
                     url: 'http://localhost:5000/test',
                     method: 'post'
@@ -145,6 +150,7 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
+                type: 'toki-method-http',
                 inputConfiguration: {
                     url: 'http://localhost:5000/test',
                     method: 'post',
@@ -168,6 +174,7 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
+                type: 'toki-method-http',
                 inputConfiguration: {
                     url: 'http://localhost:5000/test',
                     method: 'post',
@@ -191,6 +198,7 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
+                type: 'toki-method-http',
                 inputConfiguration: {
                     url: 'http://localhost:5000/test',
                     method: 'post',
@@ -214,6 +222,7 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
+                type: 'toki-method-http',
                 inputConfiguration: {
                     url: 'http://localhost:5000/test',
                     method: 'get',
@@ -243,6 +252,7 @@ describe('HTTP Method', () => {
         .resolve()
         .bind({
             action: {
+                type: 'toki-method-http',
                 inputConfiguration: {
                     url: 'http://localhost:5000/test',
                     method: 'get',
@@ -273,11 +283,55 @@ describe('HTTP Method', () => {
         const context = {
             action: {
                 name: 'test',
+                type: 'toki-method-http',
                 inputConfiguration: {
                     url: 'http://localhost:5000/payload',
                     method: 'get'
                 },
                 clientResponseConfiguration: true
+            },
+            response: {
+                send: (blah) => {
+
+                    clientResponse = blah;
+                }
+            }
+        };
+
+        return Promise
+        .resolve()
+        .bind(context)
+        .then(HttpMethod)
+        .then( (output) => {
+
+            expect(actionSpies.get.calledOnce).to.be.true();
+            expect(output).to.equal({
+                foo: 'bar',
+                baz: 'biz'
+            });
+            expect(clientResponse).to.equal({
+                foo: 'bar',
+                baz: 'biz'
+            });
+        });
+    });
+
+    it('makes a request and sends back the mapped response', () => {
+
+        let clientResponse;
+
+        const context = {
+            action: {
+                name: 'test',
+                type: 'toki-method-http',
+                inputConfiguration: {
+                    url: 'http://localhost:5000/payload',
+                    method: 'get'
+                },
+                clientResponseConfiguration: {
+                    foo: 'bar',
+                    baz: 'biz'
+                }
             },
             response: {
                 send: (blah) => {

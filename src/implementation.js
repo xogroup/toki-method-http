@@ -7,6 +7,7 @@ const Promise = require('bluebird');
 
 const configSchema = Joi.object().keys({
     name: Joi.string(),
+    type: Joi.string().valid('toki-method-http').required(),
     inputConfiguration: Joi.object().keys({
         url: Joi.string().uri().required(),
         passThroughHeaders: Joi.alternatives().try(Joi.boolean(), Joi.array()),
