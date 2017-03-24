@@ -1,11 +1,11 @@
 # toki-method-http <!-- Repo Name -->
-> Implements Foo which is great for Bar <!-- Repo Brief Description -->
+> Toki method for making HTTP requests <!-- Repo Brief Description -->
 
 <!-- Long Description -->
 This is a toki method for making http requests. It supports any valid http method, custom payloads to the endpoint, and custom responses both back to the toki context and if desired, to the originally requesting client.
 
 <!-- Maintainer (Hint, probably you) -->
-Lead Maintainer: [Derrick Hinkle](https://github.com/Your Github URL)
+Lead Maintainer: [Derrick Hinkle](https://github.com/dhinklexo)
 
 <!-- Badges Go Here -->
 
