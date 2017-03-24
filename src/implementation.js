@@ -22,10 +22,12 @@ const configSchema = Joi.object().keys({
 
 module.exports = function () {
 
+    let serverResponse;
+
     return Promise
     .resolve()
     .bind(this)
-    .then( () => Templater(this.action, configSchema, { allowUnknown: true } ) )
+    .then( () => Templater(this.action, configSchema, { hydrationContext: this.contexts, joiOptions: { allowUnknown: true } } ) )
     .then((config) => {
 
         this.config = config.inputConfiguration;
@@ -65,9 +67,9 @@ module.exports = function () {
         return req;
     }).then((response) => {
 
-        this.action.output = response.body;
+        serverResponse = response.body;
     })
-    .then(() => Templater(this.action, configSchema, { allowUnknown: true } )) //we need to re-call the templater to handle mapping our response body
+    .then(() => Templater(this.action, configSchema, {  hydrationContext: serverResponse, joiOptions: { allowUnknown: true } } )) //we need to re-call the templater to handle mapping our response body
     .then((updatedConfig) => {
 
         this.config = updatedConfig;
@@ -76,14 +78,14 @@ module.exports = function () {
 
         if (this.config.clientResponseConfiguration) {
             if (this.config.clientResponseConfiguration === true) {
-                this.response.send(this.action.output);
+                this.response.send(serverResponse);
             }
             else {
                 this.response.send(this.config.clientResponseConfiguration);
             }
         }
 
-        return this.action.output;
+        return serverResponse;
     });
 
 };
