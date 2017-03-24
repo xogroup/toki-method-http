@@ -40,8 +40,9 @@ describe('HTTP Method', () => {
             handler: (req, reply) => {
 
                 reply({
-                    foo: 'bar',
-                    baz: 'biz'
+                    foo  : 'bar',
+                    baz  : 'biz',
+                    break: null
                 });
                 return actionSpies.get(req.payload, req.headers);
             }
@@ -75,7 +76,8 @@ describe('HTTP Method', () => {
         .bind({
             action: {
                 type: 'toki-method-http'
-            }
+            },
+            contexts: {}
         })
         .then(HttpMethod)
         .catch( (e) => {
@@ -94,7 +96,8 @@ describe('HTTP Method', () => {
                 inputConfiguration: {
                     url: 'http://localhost:5000/test'
                 }
-            }
+            },
+            contexts: {}
         })
         .then(HttpMethod)
         .then( () => {
@@ -114,7 +117,8 @@ describe('HTTP Method', () => {
                     url: 'http://localhost:5000/test',
                     method: 'post'
                 }
-            }
+            },
+            contexts: {}
         })
         .then(HttpMethod)
         .then( () => {
@@ -134,7 +138,8 @@ describe('HTTP Method', () => {
                     url: 'http://localhost:5000/test',
                     method: 'post'
                 }
-            }
+            },
+            contexts: {}
         })
         .then(HttpMethod)
         .then( () => {
@@ -156,7 +161,8 @@ describe('HTTP Method', () => {
                     method: 'post',
                     headers: testHeader
                 }
-            }
+            },
+            contexts: {}
         })
         .then(HttpMethod)
         .then( () => {
@@ -180,7 +186,8 @@ describe('HTTP Method', () => {
                     method: 'post',
                     payload: testBody
                 }
-            }
+            },
+            contexts: {}
         })
         .then(HttpMethod)
         .then( () => {
@@ -205,7 +212,8 @@ describe('HTTP Method', () => {
                     payload: testBody,
                     type: 'json'
                 }
-            }
+            },
+            contexts: {}
         })
         .then(HttpMethod)
         .then( () => {
@@ -234,7 +242,8 @@ describe('HTTP Method', () => {
                     'x-arbitrary': 'foo',
                     'x-bar': 'biz'
                 }
-            }
+            },
+            contexts: {}
         })
         .then(HttpMethod)
         .then( () => {
@@ -264,7 +273,8 @@ describe('HTTP Method', () => {
                     'x-arbitrary': 'foo',
                     'x-bar': 'biz'
                 }
-            }
+            },
+            contexts: {}
         })
         .then(HttpMethod)
         .then( () => {
@@ -295,7 +305,8 @@ describe('HTTP Method', () => {
 
                     clientResponse = blah;
                 }
-            }
+            },
+            contexts: {}
         };
 
         return Promise
@@ -306,12 +317,14 @@ describe('HTTP Method', () => {
 
             expect(actionSpies.get.calledOnce).to.be.true();
             expect(output).to.equal({
-                foo: 'bar',
-                baz: 'biz'
+                foo  : 'bar',
+                baz  : 'biz',
+                break: null
             });
             expect(clientResponse).to.equal({
-                foo: 'bar',
-                baz: 'biz'
+                foo  : 'bar',
+                baz  : 'biz',
+                break: null
             });
         });
     });
@@ -329,10 +342,14 @@ describe('HTTP Method', () => {
                     method: 'get'
                 },
                 clientResponseConfiguration: {
-                    foo: 'bar',
-                    baz: 'biz'
+                    data: {
+                        foo  : 'bar',
+                        baz  : 'biz',
+                        break: '{{break}}'
+                    }
                 }
             },
+            contexts: {},
             response: {
                 send: (blah) => {
 
@@ -349,12 +366,16 @@ describe('HTTP Method', () => {
 
             expect(actionSpies.get.calledOnce).to.be.true();
             expect(output).to.equal({
-                foo: 'bar',
-                baz: 'biz'
+                foo  : 'bar',
+                baz  : 'biz',
+                break: null
             });
             expect(clientResponse).to.equal({
-                foo: 'bar',
-                baz: 'biz'
+                data: {
+                    foo  : 'bar',
+                    baz  : 'biz',
+                    break: null
+                }
             });
         });
     });

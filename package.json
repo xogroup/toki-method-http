@@ -34,6 +34,6 @@
   "peerDependencies": {},
   "dependencies": {
     "superagent": "3.5.x",
-    "toki-templater": "1.x.x"
+    "toki-templater": "2.x.x"
   }
 }
