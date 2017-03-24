@@ -15,7 +15,7 @@ actions: [
     {
         name: 'make inquiry' //name your action
         inputConfiguration: { //configuration for making our request
-            url: 'http://qa-no-services.theknot.com/conversations/inquiry' //target URL
+            url: 'http://test.com/sample/api' //target URL
             passThroughHeaders: true //true if we want to pass all incoming request headers along, or an array of the ones we want to pass
             headers: {'X-Authorization': 'Bearer MyApiKey'} //headers to add
             payload: true //pass along the incoming request body? Template literals are also acceptable
