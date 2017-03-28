@@ -49,12 +49,12 @@ module.exports = function () {
         //proxy along  headers
         if (this.config.passThroughHeaders) {
             if (this.config.passThroughHeaders === true) {
-                req.set(this.request.headers);
+                req.set(this.server.request.headers);
             }
             else {
                 this.config.passThroughHeaders.forEach( (header) => {
 
-                    req.set(header, this.request.headers[header]);
+                    req.set(header, this.server.request.headers[header]);
                 });
             }
         }
@@ -78,10 +78,10 @@ module.exports = function () {
 
         if (this.config.clientResponseConfiguration) {
             if (this.config.clientResponseConfiguration === true) {
-                this.response.send(serverResponse);
+                this.server.response.send(serverResponse);
             }
             else {
-                this.response.send(this.config.clientResponseConfiguration);
+                this.server.response.send(this.config.clientResponseConfiguration);
             }
         }
 

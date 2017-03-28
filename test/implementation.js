@@ -237,10 +237,12 @@ describe('HTTP Method', () => {
                     passThroughHeaders: true
                 }
             },
-            request: {
-                headers: {
-                    'x-arbitrary': 'foo',
-                    'x-bar': 'biz'
+            server: {
+                request: {
+                    headers: {
+                        'x-arbitrary': 'foo',
+                        'x-bar': 'biz'
+                    }
                 }
             },
             contexts: {}
@@ -268,10 +270,12 @@ describe('HTTP Method', () => {
                     passThroughHeaders: ['x-bar']
                 }
             },
-            request: {
-                headers: {
-                    'x-arbitrary': 'foo',
-                    'x-bar': 'biz'
+            server: {
+                request: {
+                    headers: {
+                        'x-arbitrary': 'foo',
+                        'x-bar': 'biz'
+                    }
                 }
             },
             contexts: {}
@@ -300,10 +304,12 @@ describe('HTTP Method', () => {
                 },
                 clientResponseConfiguration: true
             },
-            response: {
-                send: (blah) => {
+            server: {
+                response: {
+                    send: (blah) => {
 
-                    clientResponse = blah;
+                        clientResponse = blah;
+                    }
                 }
             },
             contexts: {}
@@ -350,10 +356,12 @@ describe('HTTP Method', () => {
                 }
             },
             contexts: {},
-            response: {
-                send: (blah) => {
+            server: {
+                response: {
+                    send: (blah) => {
 
-                    clientResponse = blah;
+                        clientResponse = blah;
+                    }
                 }
             }
         };
