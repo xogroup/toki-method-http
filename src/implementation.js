@@ -52,11 +52,9 @@ module.exports = function () {
                 req.set(this.server.request.headers);
             }
             else {
-                const self = this;
-
                 this.config.passThroughHeaders.forEach( (header) => {
 
-                    req.set(header, self.server.request.headers[header]);
+                    req.set(header, this.server.request.headers[header]);
                 });
             }
         }
